@@ -78,113 +78,242 @@
                 <button id="btnVistaIngresar" class="btn-modo">➕ Ingresar Nuevo CV</button>
             </div>
 
-            <!-- ==========================================
-                SUB-MÓDULO A: EL BUSCADOR Y FILTROS
-                ========================================== -->
-            <div id="submodulo-buscar-contenedor">
-                
-                <!-- Panel de Control Principal -->
-                <div class="search-panel">
-                    
-                    <!-- CORREGIDO: Añadimos la clase search-box para recuperar el formato técnico -->
-                    <div class="search-box-row search-box">
-                        <input type="text" id="puestoBusqueda" placeholder="🔍 Escriba el perfil a buscar (Ej: electricista, ingeniero, analista)...">
-                        
-                        <!-- Contenedor del botón de búsqueda y el link inmóvil abajo -->
-                        <div class="buscar-btn-wrapper">
-                            <button id="btnBuscar" class="button btn-buscar-status" disabled>Buscar Perfil</button>
-                            <a href="#" id="toggleAvanzado">⚙️ Mostrar Opciones Avanzadas</a>
-                        </div>
-                    </div>
+            <div id="submodulo-ingresar-contenedor" style="display:none;">
 
-                    <!-- PANEL AVANZADO INTEGRADO: Estructura simétrica unificada de dos filas -->
-                    <div id="panel-avanzado" class="panel-avanzado-integrado">
-                        
-                        <!-- Fila 1 de Parámetros -->
-                        <div class="filtros-fila">
-                            <div class="filtro-grupo col-izquierda">
-                                <label>Rango de Edad</label>
-                                <div class="rango-edad-inputs">
-                                    <input type="number" id="edadMin" placeholder="Mín" min="18" max="99">
-                                    <span>a</span>
-                                    <input type="number" id="edadMax" placeholder="Máx" min="18" max="99">
-                                </div>
-                            </div>
-                            <div class="filtro-grupo col-derecha">
-                                <label>Profesión / Oficio Master</label>
-                                <select id="filtroOficio">
-                                    <option value="">-- Todas las profesiones --</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Fila 2 de Parámetros -->
-                        <div class="filtros-fila">
-                            <div class="filtro-grupo col-izquierda">
-                                <label>Universidad / Casa de Estudios</label>
-                                <select id="filtroUniversidad">
-                                    <option value="">-- Todas las universidades --</option>
-                                </select>
-                            </div>
-                            <div class="filtro-grupo col-derecha">
-                                <label>Estado de Habitación</label>
-                                <select id="filtroEstado">
-                                    <option value="">-- Todos los estados --</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Contenedor de la Tabla de Resultados -->
-                <div class="table-wrapper" id="tablaContenedor" style="display: none;">
-                    <!-- Inyección dinámica de la tabla -->
-                </div>
-            </div>
-
-            <!-- ==========================================
-                SUB-MÓDULO B: FORMULARIO DE INGRESO (19 PARÁMETROS)
-                ========================================== -->
-            <div id="submodulo-ingresar-contenedor" style="display: none;">
                 <div class="formulario-card">
-                    <h3 class="formulario-subtitulo">Formulario de Inyección de Postulantes</h3>
-                    
-                    <form id="formNuevoCandidato">
-                        <!-- Identificación Básica -->
-                        <div class="form-item"><label>Nombres</label><input type="text" id="ins_nombres" required></div>
-                        <div class="form-item"><label>Apellidos</label><input type="text" id="ins_apellidos" required></div>
-                        <div class="form-item"><label>Cédula de Identidad</label><input type="text" id="ins_ci" placeholder="V-00000000" required></div>
-                        <div class="form-item"><label>Fecha de Nacimiento</label><input type="date" id="ins_fecha_nac" required></div>
-                        <div class="form-item"><label>Edad</label><input type="number" id="ins_edad" min="18" required></div>
-                        
-                        <!-- Perfil Académico y Técnico -->
-                        <div class="form-item"><label>Nivel Académico</label><input type="text" id="ins_nivel" placeholder="Ej: TSU, Ingeniero" required></div>
-                        <div class="form-item"><label>Carrera / Especialidad</label><input type="text" id="ins_carrera" required></div>
-                        <div class="form-item"><label>Universidad / Casa de Estudios</label><input type="text" id="ins_universidad" required></div>
-                        <div class="form-item"><label>Estudios Adicionales</label><input type="text" id="ins_estudios_add"></div>
-                        <div class="form-item"><label>Oficio</label><input type="text" id="ins_oficio" required></div>
-                        
-                        <!-- Experiencia y Ubicación -->
-                        <div class="form-item span-2"><label>Experiencia Relacionada (Detalle)</label><input type="text" id="ins_experiencia" required></div>
-                        <div class="form-item"><label>Teléfono Celular</label><input type="text" id="ins_celular" required></div>
-                        <div class="form-item"><label>Teléfono Local</label><input type="text" id="ins_local"></div>
-                        <div class="form-item"><label>Correo Electrónico</label><input type="email" id="ins_correo" required></div>
-                        <div class="form-item span-2"><label>Dirección de Habitación completa</label><input type="text" id="ins_direccion" required></div>
-                        <div class="form-item"><label>Localidad de Habitación</label><input type="text" id="ins_localidad" required></div>
-                        <div class="form-item"><label>Estado de Habitación</label><input type="text" id="ins_estado_hab" required></div>
-                        
-                        <!-- Socio-Institucional -->
-                        <div class="form-item"><label>Carnet de la Patria (Código/Serial)</label><input type="text" id="ins_carnet"></div>
-                        <div class="form-item"><label>Ocupación Principal</label><input type="text" id="ins_ocupacion" required></div>
-
-                        <!-- Botones de Envío -->
-                        <div class="form-botones-row">
-                            <button type="submit" class="button primary">💾 Guardar Registro e Inyectar al CSV</button>
-                            <button type="button" id="btnLimpiarForm" class="button">Limpiar Campos</button>
+            
+                    <div class="wizard-header">
+                        <h3 class="formulario-subtitulo">Registro de Postulantes</h3>
+            
+                        <div class="wizard-progress">
+                            <div id="wizardBar" class="wizard-progress-bar"></div>
                         </div>
+            
+                        <div id="wizardPasoTexto" class="wizard-step-text">
+                            Paso 1 de 2 - Datos Personales
+                        </div>
+                    </div>
+            
+                    <form id="formNuevoCandidato">
+            
+                        <!-- PASO 1 -->
+            
+                        <div id="paso1" class="wizard-step active">
+            
+                            <h4 class="wizard-section-title">
+                                Datos Personales del Postulante
+                            </h4>
+            
+                            <div class="form-item">
+                                <label>Nombres *</label>
+                                <input type="text" id="ins_nombres" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Apellidos *</label>
+                                <input type="text" id="ins_apellidos" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Cédula de Identidad *</label>
+                                <input type="text" id="ins_ci" placeholder="V-00000000" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Fecha de Nacimiento *</label>
+                                <input type="date" id="ins_fecha_nac" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Edad</label>
+                                <input type="number" id="ins_edad" readonly>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Teléfono Celular *</label>
+                                <input type="text" id="ins_celular" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Teléfono Local</label>
+                                <input type="text" id="ins_local">
+                            </div>
+            
+                            <div class="form-item span-2">
+                                <label>Correo Electrónico *</label>
+                                <input type="email" id="ins_correo" required>
+                            </div>
+            
+                            <div class="form-item span-2">
+                                <label>Dirección de Habitación Completa *</label>
+                                <input type="text" id="ins_direccion" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Localidad *</label>
+                                <input type="text" id="ins_localidad" required>
+                            </div>
+            
+                            <div class="form-item">
+                                <label>Estado *</label>
+                                <input type="text" id="ins_estado_hab" required>
+                            </div>
+            
+                            <div class="form-botones-row">
+            
+                                <button type="button" id="btnLimpiarPaso1" class="button">
+                                    Limpiar Campos
+                                </button>
+            
+                                <button type="button" id="btnSiguiente" class="button primary">
+                                    Siguiente →
+                                </button>
+            
+                            </div>
+            
+                        </div>
+            
+                        <!-- PASO 2 -->
+            
+                        <div id="paso2" class="wizard-step">
+            
+                            <h4 class="wizard-section-title">
+                                Formación Académica y Experiencia
+                            </h4>
+            
+                            <div class="form-item">
+            
+                                <label>Nivel Académico *</label>
+            
+                                <select id="ins_nivel">
+            
+                                    <option value="">Seleccione...</option>
+            
+                                    <option value="Primaria">
+                                        Primaria
+                                    </option>
+            
+                                    <option value="Bachiller">
+                                        Bachiller
+                                    </option>
+            
+                                    <option value="TSU">
+                                        TSU
+                                    </option>
+            
+                                    <option value="Universitario">
+                                        Universitario/a
+                                    </option>
+            
+                                </select>
+            
+                            </div>
+            
+                            <div class="form-item">
+            
+                                <label>Estado Académico</label>
+            
+                                <div id="estadoAcademicoContainer">
+            
+                                </div>
+            
+                            </div>
+            
+                            <div class="form-item span-2">
+            
+                                <label>Carrera / Especialidad *</label>
+            
+                                <input
+                                    type="text"
+                                    id="ins_carrera"
+                                    placeholder="Ej: Ingeniería Eléctrica"
+                                >
+            
+                            </div>
+            
+                            <div class="form-item span-2">
+            
+                                <label>Universidad / Casa de Estudios *</label>
+            
+                                <input
+                                    type="text"
+                                    id="ins_universidad"
+                                    placeholder="Escriba nombre o siglas..."
+                                    autocomplete="off"
+                                >
+            
+                                <div
+                                    id="universidadSuggestions"
+                                    class="autocomplete-box">
+                                </div>
+            
+                            </div>
+            
+                            <div class="form-item span-2">
+            
+                                <label>Estudios Adicionales</label>
+            
+                                <textarea
+                                    id="ins_estudios_add"
+                                    rows="4">
+                                </textarea>
+            
+                            </div>
+            
+                            <div class="form-item span-2">
+            
+                                <label>Experiencia Relacionada *</label>
+            
+                                <textarea
+                                    id="ins_experiencia"
+                                    rows="5"
+                                    required>
+                                </textarea>
+            
+                            </div>
+            
+                            <div class="form-item span-2">
+            
+                                <label>Oficio *</label>
+            
+                                <input
+                                    type="text"
+                                    id="ins_oficio"
+                                    placeholder="Ej: Electricista Industrial"
+                                >
+            
+                            </div>
+            
+                            <div class="form-botones-row">
+            
+                                <button
+                                    type="button"
+                                    id="btnVolver"
+                                    class="button">
+                                    ← Volver
+                                </button>
+            
+                                <button
+                                    type="button"
+                                    id="btnLimpiarForm"
+                                    class="button">
+                                    Limpiar
+                                </button>
+            
+                                <button
+                                    type="submit"
+                                    class="button primary">
+                                    💾 Guardar Registro
+                                </button>
+            
+                            </div>
+            
+                        </div>
+            
                     </form>
+            
                 </div>
+            
             </div>
         </section>
 
