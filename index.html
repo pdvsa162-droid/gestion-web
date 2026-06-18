@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Web - Estilo Stellar</title>
+    <!-- ENLACE PARA EL ICONO DE LA PESTAÑA -->
+    <link rel="icon" type="image/x-icon" href="logo.ico">
+    <meta name="description" content="Sistema Integral de Gestión de Archivo y Talento — Recursos Humanos.">
+    <!-- Google Fonts para una tipografía limpia y moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- MODAL DE ACCESO CRÍTICO AL FILE SYSTEM -->
+    <div id="folder-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px);">
+        <!-- Caja del Modal con ID asignado para la animación -->
+        <div id="modal-box" style="background: #ffffff; padding: 50px 40px; border-radius: 6px; text-align: center; max-width: 550px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-top: 5px solid #D51C28; transition: all 0.3s ease;">
+            
+            <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 2s infinite;">📁</div>
+            
+            <h2 style="color: #000000; font-size: 1.8rem; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px;">
+                Inicialización del Sistema
+            </h2>
+            
+            <p style="color: #4b5563; font-size: 1rem; margin-bottom: 35px; line-height: 1.6;">
+                Para desbloquear las pestañas de navegación y gestionar los expedientes, el sistema requiere indexar de forma segura el directorio raíz de este entorno operativo.
+            </p>
+            
+            <!-- BOTÓN ENORME INSTITUCIONAL -->
+            <button id="btnConcederAcceso" class="button primary" style="width: 100%; padding: 20px 30px; font-size: 1.1rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(213, 28, 40, 0.3); border-radius: 6px;">
+                🚀 CONCEDER ACCESO Y ACTIVAR DIRECTORIO
+            </button>
+        </div>
+    </div>
+	
+    <!-- Contenedor Principal (Wrapper) -->
+    <div id="wrapper">
+
+        <!-- Encabezado (Header) -->
+        <header id="header">
+            <div class="logo">
+                <img src="logo.png" alt="Logo PDVSA" />
+            </div>
+            <h1>Sistema Integral de Gestión de Archivo y Talento</h1>
+            <p>División de Recursos Humanos — Optimización y Control Operativo</p>
+        </header>
+
+        <!-- Barra de Navegación (Nav) -->
+        <nav id="nav">
+            <ul>
+                <li><a href="#buscador" class="nav-link active">Buscador de Talentos</a></li>
+                <li><a href="#personal" class="nav-link">Gestión de Personal</a></li>
+                <li><a href="#vacaciones" class="nav-link">Control de Vacaciones</a></li>
+                <li><a href="#archivo-fisico" class="nav-link">Explorador de Archivo Móvil</a></li>
+            </ul>
+        </nav>
+
+         <!-- Contenedor de Contenido (Main) -->
+        <main id="main">
+
+           <!-- Pestaña 1: Buscador de Talentos -->
+            <section id="buscador" class="tab-content active">
+                <h2 class="section-title">Buscador de Talentos e Historial de Postulaciones</h2>
+                <p class="center-text">El sistema evalúa los perfiles de los postulantes indexados automáticamente por relevancia de términos.</p>
+                
+                <!-- Panel de Control Sutil -->
+                <div class="search-panel" style="justify-content: center;">
+                    <div class="search-box" style="display: flex; gap: 10px; max-width: 700px; width: 100%;">
+                        <input type="text" id="puestoBusqueda" placeholder="🔍 Escriba el perfil a buscar (Ej: electricista, ingeniero, analista)...">
+                        <!-- El botón inicia deshabilitado (gris) por defecto -->
+                        <button id="btnBuscar" class="button btn-buscar-status" disabled>Buscar Perfil</button>
+                    </div>
+                </div>
+
+                <!-- El contenedor de la tabla inicia totalmente oculto (display: none) -->
+                <div class="table-wrapper" id="tablaContenedor" style="display: none;">
+                    <!-- Aquí tu JavaScript inyectará la tabla dinámicamente al buscar -->
+                </div>
+            </section>
+
+            <!-- Pestaña 2: Gestión de Personal -->
+            <section id="personal" class="tab-content">
+                <h2 class="section-title">Gestión de Personal</h2>
+                <p class="center-text">Módulo para el control de personal Activo, Jubilado, Retirado y Transferido.</p>
+                <div class="placeholder-box">Próximamente: Panel de administración de estatus de nómina.</div>
+            </section>
+
+            <!-- Pestaña 3: Control de Vacaciones -->
+            <section id="vacaciones" class="tab-content">
+                <h2 class="section-title">Control de Vacaciones</h2>
+                <p class="center-text">Visualización de periodos disfrutados y días pendientes del personal activo.</p>
+                <div class="placeholder-box">Próximamente: Balance de días y alertas de acumulación.</div>
+            </section>
+
+            <!-- Pestaña 4: Explorador de Archivo Móvil -->
+            <section id="archivo-fisico" class="tab-content">
+                <h2 class="section-title">Explorador de Archivo Móvil</h2>
+                <p class="center-text">Localizador espacial e indexación de carpetas de expedientes físicos.</p>
+                <div class="placeholder-box">Próximamente: Mapas de estanterías y pasillos interactivos.</div>
+            </section>
+
+        </main>
+
+        <!-- Pie de Página (Footer) -->
+        <footer id="footer">
+            <p class="copyright">&copy; Mi Sitio Web. Inspirado en la estética limpia de HTML5 UP.</p>
+        </footer>
+
+    </div>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
