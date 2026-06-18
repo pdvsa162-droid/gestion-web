@@ -1,390 +1,160 @@
-/* ==========================================================================
-   ANIMACIÓN DE GOTA DE AGUA Y REVELADO (ACCESO A CARPETA)
-   ========================================================================== */
+/* ==========================================================================ANIMACIÓN DE GOTA DE AGUA Y REVELADO (ACCESO A CARPETA)========================================================================== */
 
-/* Ocultar el sistema por defecto al iniciar */
-#nav, #main {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.8s ease-in-out;
-}
+/* Ocultar el sistema por defecto al iniciar */#nav, #main {opacity: 0;pointer-events: none;transition: opacity 0.8s ease-in-out;}
 
-/* Clase que inyectará JS para mostrar todo tras el acceso */
-.sistema-visible #nav, 
-.sistema-visible #main {
-    opacity: 1;
-    pointer-events: auto;
-}
+/* Clase que inyectará JS para mostrar todo tras el acceso */.sistema-visible #nav,.sistema-visible #main {opacity: 1;pointer-events: auto;}
 
-/* Animación del Modal */
-@keyframes gotaAguaRipple {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-        border-radius: 6px;
-    }
-    30% {
-        border-radius: 50%;
-        background-color: rgba(213, 28, 40, 0.1);
-    }
-    100% {
-        transform: scale(3.5);
-        opacity: 0;
-        filter: blur(10px);
-    }
-}
+/* Animación del Modal: Efecto onda expansiva de gota de agua /@keyframes gotaAguaRipple {0% {transform: scale(1);opacity: 1;border-radius: 6px;}30% {border-radius: 50%; / Se deforma a círculo simulando el impacto de la gota /background-color: rgba(213, 28, 40, 0.1); / Destello rojo sutil /}100% {transform: scale(3.5); / Expansión hacia afuera */opacity: 0;filter: blur(10px);}}
 
-.modal-animacion-gota {
-    animation: gotaAguaRipple 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards !important;
-    pointer-events: none;
-}
+/* Clase de animación que se activa vía JS */.modal-animacion-gota {animation: gotaAguaRipple 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards !important;pointer-events: none;}
 
-#folder-overlay {
-    transition: background-color 0.8s ease, backdrop-filter 0.8s ease;
-}
+/* Transición de desvanecimiento para el fondo oscuro */#folder-overlay {transition: background-color 0.8s ease, backdrop-filter 0.8s ease;}
 
-/* ==========================================================================
-   RESET
-   ========================================================================== */
+/* ==========================================================================RESET Y ESTILOS GLOBALES (Estilo Stellar)========================================================================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+{margin: 0;padding: 0;box-sizing: border-box;}
 
-body {
-    font-family: 'Source Sans 3', sans-serif;
-    background-color: #f4f5f8;
-    background-image: linear-gradient(135deg, #f4f5f8 0%, #d1d5db 100%);
-    color: #1f2937;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-}
+body {font-family: 'Source Sans 3', sans-serif;background-color: #f4f5f8;background-image: linear-gradient(135deg, #f4f5f8 0%, #d1d5db 100%);color: #1f2937; /* Texto principal oscuro para mejor lectura */min-height: 100vh;display: flex;justify-content: center;align-items: flex-start;padding: 40px 20px;}
 
-#wrapper {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
+#wrapper {width: 100%;max-width: 1000px;margin: 0 auto;}
 
-/* ==========================================================================
-   HEADER
-   ========================================================================== */
+/* ==========================================================================HEADER========================================================================== */#header {text-align: center;padding: 40px 0 60px 0;}
 
-#header {
-    text-align: center;
-    padding: 40px 0 60px 0;
-}
+#header .logo svg {width: 60px;height: 60px;color: #D51C28; /* Rojo PDVSA */margin-bottom: 20px;}
 
-/* FIX: antes era svg, pero tú usas img */
-#header .logo img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 20px;
-}
+#header h1 {font-size: 2.5rem;font-weight: 700;letter-spacing: -1px;color: #000000; /* Negro Institucional */margin-bottom: 10px;}
 
-#header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -1px;
-    color: #000000;
-    margin-bottom: 10px;
-}
+#header p {font-size: 1.1rem;color: #4b5563; /* Gris oscuro para el subtítulo */font-weight: 400;}
 
-#header p {
-    font-size: 1.1rem;
-    color: #4b5563;
-    font-weight: 400;
-}
+/* ==========================================================================NAVEGACIÓN (Menú Fijo Estilo Stellar)========================================================================== /#nav {background-color: #ffffff;border-radius: 4px 4px 0 0;position: sticky;top: 0;z-index: 100;box-shadow: 0 4px 20px rgba(0,0,0,0.08);border-bottom: 3px solid #D51C28; / Línea acentuada en Rojo */}
 
-/* ==========================================================================
-   NAV
-   ========================================================================== */
+#nav ul {display: flex;list-style: none;justify-content: center;}
 
-#nav {
-    background-color: #ffffff;
-    border-radius: 4px 4px 0 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border-bottom: 3px solid #D51C28;
-}
+#nav ul li a {display: block;padding: 20px 30px;color: #1f2937;text-decoration: none;font-weight: 600;font-size: 0.9rem;text-transform: uppercase;letter-spacing: 1px;transition: all 0.3s ease;}
 
-#nav ul {
-    display: flex;
-    list-style: none;
-    justify-content: center;
-}
+#nav ul li a,#nav ul li a.active {color: #ffffff;background-color: #D51C28; /* Fondo Rojo PDVSA al activar o pasar mouse */}
 
-#nav ul li a {
-    display: block;
-    padding: 20px 30px;
-    color: #1f2937;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
+/* ==========================================================================CONTENEDOR PRINCIPAL Y PESTAÑAS========================================================================== */#main {background-color: #ffffff;color: #63687e;border-radius: 0 0 4px 4px;padding: 60px;box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
 
-#nav ul li a:hover, 
-#nav ul li a.active {
-    color: #ffffff;
-    background-color: #D51C28;
-}
+/* Sistema nativo de ocultado/mostrado de pestañas */.tab-content {display: none;animation: fadeIn 0.5s ease forwards;}
 
-/* ==========================================================================
-   MAIN / TABS
-   ========================================================================== */
+.tab-content.active {display: block;}
 
-#main {
-    background-color: #ffffff;
-    color: #63687e;
-    border-radius: 0 0 4px 4px;
-    padding: 60px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
+@keyframes fadeIn {from { opacity: 0; transform: translateY(10px); }to { opacity: 1; transform: translateY(0); }}
 
-.tab-content {
-    display: none;
-    animation: fadeIn 0.5s ease forwards;
-}
+.section-title {font-size: 2rem;font-weight: 700;color: #000000; /* Negro absoluto */text-align: center;margin-bottom: 40px;}
 
-.tab-content.active {
-    display: block;
-}
+.center-text {text-align: center;margin-top: -25px;margin-bottom: 40px;}
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* ==========================================================================COMPONENTES VISUALES INTERNOS========================================================================== */
 
-.section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 40px;
-}
+/* Bloque Spotlight (Inicio) */.spotlight {display: flex;align-items: center;gap: 40px;}
 
-.center-text {
-    text-align: center;
-    margin-top: -25px;
-    margin-bottom: 40px;
-}
+.spotlight .content {flex: 1;}
 
-/* ==========================================================================
-   MODAL
-   ========================================================================== */
+.spotlight h2 {font-size: 2rem;font-weight: 300;color: #2e344d;margin-bottom: 20px;}
 
-#folder-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 23, 42, 0.95);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.spotlight p {line-height: 1.8;margin-bottom: 30px;}
 
-#modal-box {
-    background: #ffffff;
-    padding: 50px 40px;
-    border-radius: 6px;
-    text-align: center;
-    max-width: 550px;
-    width: 90%;
-}
+.spotlight .image-placeholder {width: 250px;height: 250px;background-color: #f4f5f7;border-radius: 100%;display: flex;justify-content: center;align-items: center;border: 1px solid #e1e4e9;}
 
-/* ==========================================================================
-   BOTONES
-   ========================================================================== */
+.mock-img {font-weight: 600;color: #a2a7b7;}
 
-.button {
-    display: inline-block;
-    padding: 12px 30px;
-    border: 1px solid #e6e9f0;
-    background-color: transparent;
-    color: #2e344d;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-}
+/* Cuadrícula de Características (Servicios) */.features-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));gap: 30px;}
 
-.button.primary {
-    background-color: #D51C28;
-    color: white;
-    border-color: #D51C28;
-}
+.feature-card {background-color: #fcfdfe;border: 1px solid #e6e9f0;padding: 30px;border-radius: 6px;text-align: center;transition: transform 0.3s ease;}
 
-.button.primary:hover {
-    background-color: #000000;
-}
+.feature-card {transform: translateY(-5px);}
 
-/* ==========================================================================
-   FOOTER (FIX REAL)
-   ========================================================================== */
+.feature-card .icon {font-size: 2.5rem;margin-bottom: 15px;}
 
-/* ❌ antes estaba mal escrito como #footer class="copyright" */
-#footer .copyright {
-    font-size: 0.85rem;
-    color: #666;
-}
+.feature-card h3 {font-size: 1.2rem;color: #2e344d;margin-bottom: 10px;}
 
-/* ==========================================================================
-   ESTRUCTURA MÓVIL Y GEOMETRÍA DEL BUSCADOR
-   ========================================================================== */
+.feature-card p {font-size: 0.95rem;line-height: 1.6;}
 
-/* Panel contenedor blanco original */
-.search-panel {
-    background-color: #f8f9fa;
-    padding: 25px;
-    border-radius: 6px;
-    border: 1px solid #e5e7eb;
-    margin-bottom: 30px;
-}
+/* Bloques de Estadísticas */.stats-grid {display: grid;grid-template-columns: repeat(3, 1fr);gap: 20px;}
 
-/* Fila de búsqueda superior */
-.search-box-row {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    width: 100%;
-}
+.stat-box {padding: 40px 20px;border-radius: 6px;color: #ffffff;text-align: center;}
 
-.search-box-row input[type="text"] {
-    flex: 1;
-}
+.stat-box strong {display: block;font-size: 2.5rem;font-weight: 700;margin-bottom: 5px;}
 
-/* Envoltura del botón y el link para que queden fijos uno debajo del otro */
-.buscar-btn-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    min-width: 160px;
-}
+.stat-box span {font-size: 0.9rem;text-transform: uppercase;letter-spacing: 1px;opacity: 0.8;}
 
-.buscar-btn-wrapper button {
-    width: 100%;
-}
+/* Degradados de colores típicos de Stellar /.box-1 {background: #D51C28; / Rojo Principal /box-shadow: 0 4px 15px rgba(213, 28, 40, 0.2);}.box-2 {background: #4b5563; / Gris Mineral Técnico /box-shadow: 0 4px 15px rgba(75, 85, 99, 0.2);}.box-3 {background: #000000; / Negro Institucional /box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);}/ Formulario de Contacto */.contact-container {max-width: 600px;margin: 0 auto;}
 
-/* CORREGIDO: Enlace azul, sin subrayar y con tamaño adecuado */
-#toggleAvanzado {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none !important; /* Quita el subrayado completamente */
-    color: #1e40af !important; /* Color Azul Limpio */
-    border-bottom: none !important; /* Elimina cualquier borde de plantilla */
-    white-space: nowrap;
-    transition: color 0.2s ease;
-}
+.contact-form .form-group {margin-bottom: 20px;}
 
-#toggleAvanzado:hover {
-    color: #2563eb !important;
-}
+.contact-form input,.contact-form textarea {width: 100%;padding: 15px;border: 1px solid #e6e9f0;background-color: #f8f9fb;border-radius: 4px;font-family: inherit;font-size: 1px;color: #63687e;outline: none;transition: border 0.3s;}
 
-/* CONTENEDOR INTEGRADO (Sin color de fondo extraño) */
-.panel-avanzado-integrado {
-    max-height: 0; /* Animación fluida */
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Separación vertical idéntica entre filas */
-    width: 100%;
-}
+.contact-form input,.contact-form textarea {border-color: #a89cc8;background-color: #ffffff;}
 
-/* Clase activa inyectada por JS */
-.panel-avanzado-integrado.open {
-    margin-top: 25px; /* Espacio con el buscador superior al abrirse */
-}
+/* Botones */.button {display: inline-block;padding: 12px 30px;border: 1px solid #e6e9f0;background-color: transparent;color: #2e344d;text-decoration: none;font-weight: 600;border-radius: 4px;cursor: pointer;text-transform: uppercase;font-size: 0.85rem;letter-spacing: 1px;transition: all 0.3s ease;}
 
-/* Filas horizontales que organizan los parámetros */
-.filtros-fila {
-    display: flex;
-    justify-content: space-between; /* Fuerza la misma separación hacia los bordes y el centro */
-    width: 100%;
-}
+.button {background-color: #f4f5f7;border-color: #cdd2dc;}
 
-/* Bloques individuales del parámetro */
-.filtro-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 48%; /* Ocupan exactamente el mismo espacio (Eje X perfecto) */
-}
+.button.primary {background-color: #D51C28; /* Rojo PDVSA */color: #ffffff;border-color: #D51C28;}
 
-.filtro-grupo label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #1a202c;
-    letter-spacing: 0.5px;
-}
+.button.primary {background-color: #000000; /* Cambia a negro al pasar el mouse */border-color: #000000;}
 
-.filtro-grupo select,
-.filtro-grupo input {
-    padding: 10px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 0.9rem;
-    color: #1a202c;
-    outline: none;
-    width: 100%;
-}
+/* ==========================================================================FOOTER========================================================================== */#footer {text-align: center;padding: 40px 0;}
 
-/* Rango de edad centrado */
-.rango-edad-inputs {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+#footer class="copyright" {font-size: 0.85rem;color: rgba(255, 255, 255, 0.3);}
 
-.rango-edad-inputs span {
-    font-size: 0.85rem;
-    color: #4a5568;
-    font-weight: 600;
-}
+/* ==========================================================================RESPONSIVO (Celulares y Tablets)========================================================================== */@media (max-width: 768px) {body { padding: 10px; }#main { padding: 30px 20px; }.spotlight { flex-direction: column-reverse; text-align: center; }#nav ul { flex-direction: column; }#nav ul li a { text-align: center; padding: 15px; border-bottom: 1px solid #f4f5f7; }.stats-grid { grid-template-columns: 1fr; }}
 
-/* Ajuste adaptativo para pantallas pequeñas */
-@media (max-width: 680px) {
-    .search-box-row {
-        flex-direction: column;
-    }
-    .buscar-btn-wrapper {
-        width: 100%;
-    }
-    .filtros-fila {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .filtro-grupo {
-        width: 100%;
-    }
-}
+/* ==========================================================================ESTILOS ESPECÍFICOS DEL BUSCADOR Y TABLAS (MÓDULO 1)========================================================================== */.search-panel {display: flex;flex-wrap: wrap;gap: 20px;background-color: #f8f9fa;padding: 20px;border-radius: 6px;border: 1px solid #e5e7eb;margin-bottom: 30px;align-items: center;}
 
-/* ==========================================================================
-   TABLA
-   ========================================================================== */
+.upload-box {display: flex;align-items: center;gap: 15px;}
 
-.table-wrapper {
-    overflow-x: auto;
-}
+.file-status {font-size: 0.85rem;color: #6b7280;font-style: italic;}
+
+.search-box {flex: 1;min-width: 280px;}
+
+.search-box input {width: 100%;padding: 12px 15px;border: 1px solid #d1d5db;border-radius: 4px;font-size: 0.95rem;outline: none;transition: all 0.3s ease;}
+
+.search-box input {border-color: #D51C28;box-shadow: 0 0 0 3px rgba(213, 28, 40, 0.1);}
+
+.search-box input {background-color: #e5e7eb;cursor: not-allowed;opacity: 0.6;}
+
+/* Tabla de Datos Corporativa */.table-wrapper {overflow-x: auto;border: 1px solid #e5e7eb;border-radius: 6px;background-color: #ffffff;}
+
+table {width: 100%;border-collapse: collapse;text-align: left;font-size: 0.95rem;}
+
+th {background-color: #000000; /* Negro Institucional en encabezados */color: #ffffff;padding: 12px 15px;font-weight: 600;text-transform: uppercase;font-size: 0.8rem;letter-spacing: 0.5px;}
+
+td {padding: 12px 15px;border-bottom: 1px solid #e5e7eb;color: #374151;}
+
+tr(even) {background-color: #f9fafb; /* Filas alternas gris claro industrial */}
+
+tr {background-color: rgba(213, 28, 40, 0.04); /* Sutil iluminación roja al pasar el mouse */}
+
+.empty-table-message {text-align: center;padding: 40px !important;color: #9ca3af;font-style: italic;}
+
+.placeholder-box {background-color: #f3f4f6;border: 2px dashed #d1d5db;padding: 60px 20px;text-align: center;border-radius: 6px;color: #9ca3af;margin-top: 20px;}
+
+/* ==========================================================================BANNER DE ESTADO DE LA BASE DE DATOS (.CSV)========================================================================== */.db-status {max-width: 600px;margin: 0 auto 25px auto;padding: 12px 20px;border-radius: 4px;text-align: center;font-weight: 600;font-size: 0.9rem;display: flex;align-items: center;justify-content: center;gap: 10px;transition: all 0.4s ease;}
+
+/* Estado: Cargando */.db-status.loading {background-color: #f3f4f6;border: 1px solid #d1d5db;color: #4b5563;}
+
+/* Estado: Éxito (Verde Técnico) */.db-status.success {background-color: #ecfdf5;border: 1px solid #107c41;color: #107c41;box-shadow: 0 2px 10px rgba(16, 124, 65, 0.1);}
+
+/* Estado: Error (Rojo Corporativo) */.db-status.error {background-color: #fef2f2;border: 1px solid #D51C28;color: #D51C28;box-shadow: 0 2px 10px rgba(213, 28, 40, 0.1);}
+
+/* ==========================================================================ETIQUETAS DE RANGO Y RELEVANCIA (TU ALGORITMO)========================================================================== */.porcentaje {display: inline-block;padding: 4px 10px;border-radius: 4px;font-weight: 600;font-size: 0.85rem;}
+
+/* Alta coincidencia (Verde Industrial) */.porcentaje.alta {background-color: #ecfdf5;color: #107c41;border: 1px solid #107c41;}
+
+/* Media coincidencia (Gris Técnico Corporativo) */.porcentaje.media {background-color: #f3f4f6;color: #4b5563;border: 1px solid #4b5563;}
+
+/* Sin coincidencia (Rojo de Alerta de la marca) */.porcentaje.baja {background-color: #fef2f2;color: #D51C28;border: 1px solid #D51C28;}
+
+.perfil-texto {max-width: 400px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+
+/* ==========================================================================ESTADOS INTELIGENTES DEL BOTÓN DE BÚSQUEDA========================================================================== /.btn-buscar-status {background-color: #e5e7eb !important; / Gris claro neutro /color: #9ca3af !important;            / Texto gris atenuado */border-color: #d1d5db !important;cursor: not-allowed !important;opacity: 0.7;}
+
+.btn-buscar-status() {background-color: #D51C28 !important; /* Rojo Oficial PDVSA al activarse */color: #ffffff !important;border-color: #D51C28 !important;cursor: pointer !important;font-weight: 600;}
+
+.btn-buscar-status() {background-color: #000000 !important; /* Cambia a Negro Institucional al pasar el mouse */border-color: #000000 !important;}
 
 /* ==========================================================================
    NUEVO ESQUEMA DE DISEÑO Y CONTROLES DE INTERFAZ
