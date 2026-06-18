@@ -232,5 +232,50 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) target.classList.add('active');
         });
     });
+    
+     // Selectores de los elementos interactivos
+    const btnVistaBuscador = document.getElementById('btnVistaBuscador');
+    const btnVistaIngresar = document.getElementById('btnVistaIngresar');
+    const submoduloBuscar = document.getElementById('submodulo-buscar-contenedor');
+    const submoduloIngresar = document.getElementById('submodulo-ingresar-contenedor');
+    
+    const toggleAvanzado = document.getElementById('toggleAvanzado');
+    const panelAvanzado = document.getElementById('panel-avanzado');
 
+    // CONTROL SEGURO DE BOTONES DE MODO (Sin sobreescribir estilos crudos)
+    if (btnVistaBuscador && btnVistaIngresar) {
+        btnVistaBuscador.addEventListener('click', () => {
+            submoduloIngresar.style.display = 'none';
+            submoduloBuscar.style.display = 'block';
+            
+            btnVistaIngresar.classList.remove('active');
+            btnVistaBuscador.classList.add('active');
+        });
+
+        btnVistaIngresar.addEventListener('click', () => {
+            submoduloBuscar.style.display = 'none';
+            submoduloIngresar.style.display = 'block';
+            
+            btnVistaBuscador.classList.remove('active');
+            btnVistaIngresar.classList.add('active');
+        });
+    }
+
+    // DESPLIEGUE ELÁSTICO ADAPTADO AL PANEL AVANZADO INTEGRADO
+    if (toggleAvanzado && panelAvanzado) {
+        toggleAvanzado.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Si está cerrado, abrimos el panel y ajustamos la altura al espacio de las 2 filas
+            if (!panelAvanzado.classList.contains('open')) {
+                panelAvanzado.classList.add('open');
+                panelAvanzado.style.maxHeight = '250px'; 
+                toggleAvanzado.textContent = '⚙️ Ocultar Opciones Avanzadas';
+            } else {
+                panelAvanzado.classList.remove('open');
+                panelAvanzado.style.maxHeight = '0px';
+                toggleAvanzado.textContent = '⚙️ Mostrar Opciones Avanzadas';
+            }
+        });
+    }
 });

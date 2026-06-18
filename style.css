@@ -243,37 +243,139 @@ body {
 }
 
 /* ==========================================================================
-   BUSCADOR
+   ESTRUCTURA MÓVIL Y GEOMETRÍA DEL BUSCADOR
    ========================================================================== */
 
+/* Panel contenedor blanco original */
 .search-panel {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     background-color: #f8f9fa;
-    padding: 20px;
+    padding: 25px;
     border-radius: 6px;
     border: 1px solid #e5e7eb;
     margin-bottom: 30px;
-    align-items: center;
 }
 
-.search-box {
-    flex: 1;
-    min-width: 280px;
-}
-
-.search-box input {
+/* Fila de búsqueda superior */
+.search-box-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 4px;
-    font-size: 0.95rem; /* FIX: antes estaba 1px */
 }
 
-.search-box input:focus {
-    border-color: #D51C28;
-    box-shadow: 0 0 0 3px rgba(213, 28, 40, 0.1);
+.search-box-row input[type="text"] {
+    flex: 1;
+}
+
+/* Envoltura del botón y el link para que queden fijos uno debajo del otro */
+.buscar-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+}
+
+.buscar-btn-wrapper button {
+    width: 100%;
+}
+
+/* CORREGIDO: Enlace azul, sin subrayar y con tamaño adecuado */
+#toggleAvanzado {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none !important; /* Quita el subrayado completamente */
+    color: #1e40af !important; /* Color Azul Limpio */
+    border-bottom: none !important; /* Elimina cualquier borde de plantilla */
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+#toggleAvanzado:hover {
+    color: #2563eb !important;
+}
+
+/* CONTENEDOR INTEGRADO (Sin color de fondo extraño) */
+.panel-avanzado-integrado {
+    max-height: 0; /* Animación fluida */
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Separación vertical idéntica entre filas */
+    width: 100%;
+}
+
+/* Clase activa inyectada por JS */
+.panel-avanzado-integrado.open {
+    margin-top: 25px; /* Espacio con el buscador superior al abrirse */
+}
+
+/* Filas horizontales que organizan los parámetros */
+.filtros-fila {
+    display: flex;
+    justify-content: space-between; /* Fuerza la misma separación hacia los bordes y el centro */
+    width: 100%;
+}
+
+/* Bloques individuales del parámetro */
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 48%; /* Ocupan exactamente el mismo espacio (Eje X perfecto) */
+}
+
+.filtro-grupo label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #1a202c;
+    letter-spacing: 0.5px;
+}
+
+.filtro-grupo select,
+.filtro-grupo input {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #1a202c;
+    outline: none;
+    width: 100%;
+}
+
+/* Rango de edad centrado */
+.rango-edad-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rango-edad-inputs span {
+    font-size: 0.85rem;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* Ajuste adaptativo para pantallas pequeñas */
+@media (max-width: 680px) {
+    .search-box-row {
+        flex-direction: column;
+    }
+    .buscar-btn-wrapper {
+        width: 100%;
+    }
+    .filtros-fila {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .filtro-grupo {
+        width: 100%;
+    }
 }
 
 /* ==========================================================================
@@ -282,4 +384,227 @@ body {
 
 .table-wrapper {
     overflow-x: auto;
+}
+
+/* ==========================================================================
+   NUEVO ESQUEMA DE DISEÑO Y CONTROLES DE INTERFAZ
+   ========================================================================== */
+
+/* Contenedor de botones de modo superior */
+.modos-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* Botones de cambio de modo */
+.btn-modo {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #1a202c; /* Gris Grafito Oscuro */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-modo:hover {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+/* Estado presionado/activo: Rojo Oficial PDVSA */
+.btn-modo.active {
+    background-color: #D51C28 !important;
+    border-color: #D51C28 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(213, 28, 40, 0.25);
+}
+
+/* Fila del buscador principal */
+.search-box-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.search-box-row input[type="text"] {
+    flex: 1;
+}
+
+/* Envoltura del botón y el link para fijarlo inmóvil abajo */
+.buscar-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+}
+
+.buscar-btn-wrapper button {
+    width: 100%;
+}
+
+/* CORREGIDO: Enlace azul corporativo, sin subrayar y sin bordes */
+#toggleAvanzado {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    color: #1e40af !important; /* Azul Limpio */
+    border-bottom: none !important;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+#toggleAvanzado:hover {
+    color: #2563eb !important;
+}
+
+/* CONTENEDOR INTEGRADO (Sin color de fondo extraño) */
+.panel-avanzado-integrado {
+    max-height: 0; /* Controlado por JS para la animación */
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Separación vertical idéntica entre líneas */
+    width: 100%;
+}
+
+/* Margen de seguridad simétrico solo cuando se abre */
+.panel-avanzado-integrado.open {
+    margin-top: 25px;
+}
+
+/* Filas horizontales que distribuyen los parámetros */
+.filtros-fila {
+    display: flex;
+    justify-content: space-between; /* Distribución perfecta en el eje X */
+    width: 100%;
+}
+
+/* Bloques que agrupan las etiquetas y los selectores */
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 48%; /* Separación idéntica desde el centro y los bordes */
+}
+
+/* Alineación exacta para que ningún elemento se vea volando */
+.filtro-grupo.col-izquierda {
+    align-items: flex-start;
+}
+
+.filtro-grupo.col-derecha {
+    align-items: flex-start;
+}
+
+.filtro-grupo label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #1a202c; /* Gris Grafito Oscuro */
+    letter-spacing: 0.5px;
+}
+
+.filtro-grupo select,
+.filtro-grupo input {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #1a202c;
+    outline: none;
+    width: 100%;
+}
+
+/* Alineación horizontal perfecta para el rango de edad */
+.rango-edad-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.rango-edad-inputs span {
+    font-size: 0.85rem;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* Ajustes estructurales de la tarjeta del formulario */
+.formulario-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 35px;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.formulario-subtitulo {
+    color: #1a202c;
+    font-weight: 700;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #D51C28;
+    padding-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+#formNuevoCandidato {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-item.span-2 {
+    grid-column: span 2;
+}
+
+.form-botones-row {
+    grid-column: 1 / -1;
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+}
+
+.form-botones-row button {
+    flex: 1;
+    padding: 14px;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 680px) {
+    .form-item.span-2 {
+        grid-column: span 1;
+    }
+    .search-box-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .buscar-btn-wrapper {
+        width: 100%;
+    }
+    .filtros-fila {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .filtro-grupo {
+        width: 100%;
+    }
 }
