@@ -69,115 +69,425 @@
 
         <!-- Pestaña 1: Buscador de Talentos + Registro -->
         <section id="buscador" class="tab-content active">
-            <h2 class="section-title">Buscador de Talentos e Historial de Postulaciones</h2>
-            <p class="center-text">Módulo avanzado de consulta, filtrado semántico e inyección de expedientes elegibles.</p>
-            
-            <!-- BARRA DE ACCIONES PRINCIPALES (Sin estilos en línea) -->
-            <div class="modos-container">
-                <button id="btnVistaBuscador" class="btn-modo active">🔍 Modo Buscador</button>
-                <button id="btnVistaIngresar" class="btn-modo">➕ Ingresar Nuevo CV</button>
+
+    <h2 class="section-title">
+        Buscador de Talentos e Historial de Postulaciones
+    </h2>
+
+    <p class="center-text">
+        Módulo avanzado de consulta, filtrado semántico e inyección de expedientes elegibles.
+    </p>
+
+    <!-- BOTONES DE CAMBIO DE MODO -->
+
+    <div class="modos-container">
+
+        <button
+            id="btnVistaBuscador"
+            class="btn-modo active">
+
+            🔍 Modo Buscador
+
+        </button>
+
+        <button
+            id="btnVistaIngresar"
+            class="btn-modo">
+
+            ➕ Ingresar Nuevo CV
+
+        </button>
+
+    </div>
+
+    <!-- =====================================================
+         MÓDULO BUSCADOR
+         ===================================================== -->
+
+    <div id="submodulo-buscar-contenedor">
+
+        <div class="search-panel">
+
+            <div class="search-box-row search-box">
+
+                <input
+                    type="text"
+                    id="puestoBusqueda"
+                    placeholder="🔍 Escriba el perfil a buscar (Ej: electricista, ingeniero, analista)...">
+
+                <div class="buscar-btn-wrapper">
+
+                    <button
+                        id="btnBuscar"
+                        class="button btn-buscar-status"
+                        disabled>
+
+                        Buscar Perfil
+
+                    </button>
+
+                    <a href="#" id="toggleAvanzado">
+                        ⚙️ Mostrar Opciones Avanzadas
+                    </a>
+
+                </div>
+
             </div>
 
-            <div id="submodulo-ingresar-contenedor" style="display:none;">
+            <div
+                id="panel-avanzado"
+                class="panel-avanzado-integrado">
 
-                <div class="formulario-card">
-            
-                    <div class="wizard-header">
-                        <h3 class="formulario-subtitulo">Registro de Postulantes</h3>
-            
-                        <div class="wizard-progress">
-                            <div id="wizardBar" class="wizard-progress-bar"></div>
+                <div class="filtros-fila">
+
+                    <div class="filtro-grupo col-izquierda">
+
+                        <label>Rango de Edad</label>
+
+                        <div class="rango-edad-inputs">
+
+                            <input
+                                type="number"
+                                id="edadMin"
+                                placeholder="Mín">
+
+                            <span>a</span>
+
+                            <input
+                                type="number"
+                                id="edadMax"
+                                placeholder="Máx">
+
                         </div>
-            
-                        <div id="wizardPasoTexto" class="wizard-step-text">
-                            Paso 1 de 2 - Datos Personales
-                        </div>
+
                     </div>
-            
-                    <form id="formNuevoCandidato">
-            
-                        <!-- PASO 1 -->
-            
-                        <div id="paso1" class="wizard-step active">
-            
-                            <h4 class="wizard-section-title">
-                                Datos Personales del Postulante
-                            </h4>
-            
-                            <div class="form-item">
-                                <label>Nombres *</label>
-                                <input type="text" id="ins_nombres" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Apellidos *</label>
-                                <input type="text" id="ins_apellidos" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Cédula de Identidad *</label>
-                                <input type="text" id="ins_ci" placeholder="V-00000000" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Fecha de Nacimiento *</label>
-                                <input type="date" id="ins_fecha_nac" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Edad</label>
-                                <input type="number" id="ins_edad" readonly>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Teléfono Celular *</label>
-                                <input type="text" id="ins_celular" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Teléfono Local</label>
-                                <input type="text" id="ins_local">
-                            </div>
-            
-                            <div class="form-item span-2">
-                                <label>Correo Electrónico *</label>
-                                <input type="email" id="ins_correo" required>
-                            </div>
-            
-                            <div class="form-item span-2">
-                                <label>Dirección de Habitación Completa *</label>
-                                <input type="text" id="ins_direccion" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Localidad *</label>
-                                <input type="text" id="ins_localidad" required>
-                            </div>
-            
-                            <div class="form-item">
-                                <label>Estado *</label>
-                                <input type="text" id="ins_estado_hab" required>
-                            </div>
-            
-                            <div class="form-botones-row">
-            
-                                <button type="button" id="btnLimpiarPaso1" class="button">
-                                    Limpiar Campos
-                                </button>
-            
-                                <button type="button" id="btnSiguiente" class="button primary">
-                                    Siguiente →
-                                </button>
-            
-                            </div>
-            
+
+                    <div class="filtro-grupo col-derecha">
+
+                        <label>Profesión / Oficio Master</label>
+
+                        <select id="filtroOficio">
+
+                            <option value="">
+                                -- Todas las profesiones --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="filtros-fila">
+
+                    <div class="filtro-grupo col-izquierda">
+
+                        <label>Universidad / Casa de Estudios</label>
+
+                        <select id="filtroUniversidad">
+
+                            <option value="">
+                                -- Todas las universidades --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="filtro-grupo col-derecha">
+
+                        <label>Estado de Habitación</label>
+
+                        <select id="filtroEstado">
+
+                            <option value="">
+                                -- Todos los estados --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="table-wrapper"
+            id="tablaContenedor"
+            style="display:none;">
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+         MÓDULO INGRESAR CV (WIZARD)
+         ===================================================== -->
+
+    <div
+        id="submodulo-ingresar-contenedor"
+        style="display:none;">
+
+        <div class="formulario-card">
+
+            <div class="wizard-header">
+
+                <h3 class="formulario-subtitulo">
+                    Registro de Postulantes
+                </h3>
+
+                <div class="wizard-progress">
+                    <div
+                        id="wizardBar"
+                        class="wizard-progress-bar">
+                    </div>
+                </div>
+
+                <div
+                    id="wizardPasoTexto"
+                    class="wizard-step-text">
+
+                    Paso 1 de 2 - Datos Personales
+
+                </div>
+
+            </div>
+
+            <form id="formNuevoCandidato">
+
+                <!-- PASO 1 -->
+
+                <div
+                    <section id="buscador" class="tab-content active">
+
+    <h2 class="section-title">
+        Buscador de Talentos e Historial de Postulaciones
+    </h2>
+
+    <p class="center-text">
+        Módulo avanzado de consulta, filtrado semántico e inyección de expedientes elegibles.
+    </p>
+
+    <!-- BOTONES DE CAMBIO DE MODO -->
+
+    <div class="modos-container">
+
+        <button
+            id="btnVistaBuscador"
+            class="btn-modo active">
+
+            🔍 Modo Buscador
+
+        </button>
+
+        <button
+            id="btnVistaIngresar"
+            class="btn-modo">
+
+            ➕ Ingresar Nuevo CV
+
+        </button>
+
+    </div>
+
+    <!-- =====================================================
+         MÓDULO BUSCADOR
+         ===================================================== -->
+
+    <div id="submodulo-buscar-contenedor">
+
+        <div class="search-panel">
+
+            <div class="search-box-row search-box">
+
+                <input
+                    type="text"
+                    id="puestoBusqueda"
+                    placeholder="🔍 Escriba el perfil a buscar (Ej: electricista, ingeniero, analista)...">
+
+                <div class="buscar-btn-wrapper">
+
+                    <button
+                        id="btnBuscar"
+                        class="button btn-buscar-status"
+                        disabled>
+
+                        Buscar Perfil
+
+                    </button>
+
+                    <a href="#" id="toggleAvanzado">
+                        ⚙️ Mostrar Opciones Avanzadas
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div
+                id="panel-avanzado"
+                class="panel-avanzado-integrado">
+
+                <div class="filtros-fila">
+
+                    <div class="filtro-grupo col-izquierda">
+
+                        <label>Rango de Edad</label>
+
+                        <div class="rango-edad-inputs">
+
+                            <input
+                                type="number"
+                                id="edadMin"
+                                placeholder="Mín">
+
+                            <span>a</span>
+
+                            <input
+                                type="number"
+                                id="edadMax"
+                                placeholder="Máx">
+
                         </div>
-            
-                        <!-- PASO 2 -->
-            
-                        <div id="paso2" class="wizard-step">
-            
-                            <h4 class="wizard-section-title">
+
+                    </div>
+
+                    <div class="filtro-grupo col-derecha">
+
+                        <label>Profesión / Oficio Master</label>
+
+                        <select id="filtroOficio">
+
+                            <option value="">
+                                -- Todas las profesiones --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="filtros-fila">
+
+                    <div class="filtro-grupo col-izquierda">
+
+                        <label>Universidad / Casa de Estudios</label>
+
+                        <select id="filtroUniversidad">
+
+                            <option value="">
+                                -- Todas las universidades --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="filtro-grupo col-derecha">
+
+                        <label>Estado de Habitación</label>
+
+                        <select id="filtroEstado">
+
+                            <option value="">
+                                -- Todos los estados --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="table-wrapper"
+            id="tablaContenedor"
+            style="display:none;">
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+         MÓDULO INGRESAR CV (WIZARD)
+         ===================================================== -->
+
+    <div
+        id="submodulo-ingresar-contenedor"
+        style="display:none;">
+
+        <div class="formulario-card">
+
+            <div class="wizard-header">
+
+                <h3 class="formulario-subtitulo">
+                    Registro de Postulantes
+                </h3>
+
+                <div class="wizard-progress">
+                    <div
+                        id="wizardBar"
+                        class="wizard-progress-bar">
+                    </div>
+                </div>
+
+                <div
+                    id="wizardPasoTexto"
+                    class="wizard-step-text">
+
+                    Paso 1 de 2 - Datos Personales
+
+                </div>
+
+            </div>
+
+            <form id="formNuevoCandidato">
+
+                <!-- PASO 1 -->
+
+                <div
+                    id="paso1"
+                    class="wizard-step active">
+
+                    <!-- AQUÍ VA TODO TU PASO 1 ACTUAL -->
+
+                </div>
+
+                <!-- PASO 2 -->
+
+                <div
+                    id="paso2"
+                    class="wizard-step">
+
+                    <!-- AQUÍ VA TODO TU PASO 2 ACTUAL -->
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+                </div>
+
+                <!-- PASO 2 -->
+
+                <div
+                    id="paso2"
+                    class="wizard-step">
+
+                    <h4 class="wizard-section-title">
                                 Formación Académica y Experiencia
                             </h4>
             
@@ -307,15 +617,16 @@
                                 </button>
             
                             </div>
-            
-                        </div>
-            
-                    </form>
-            
+
                 </div>
-            
-            </div>
-        </section>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
 
         <!-- PERSONAL -->
         <section id="personal" class="tab-content">
